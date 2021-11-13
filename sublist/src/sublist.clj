@@ -6,7 +6,7 @@
     (if
       (< len-b len-a) false
       (if (= a (take len-a b)) true
-        (contained-in a (rest b))))))
+        (recur a (rest b))))))
 
 (defn classify [list1 list2] ;; <- arglist goes here
   (cond
