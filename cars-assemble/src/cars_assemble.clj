@@ -14,9 +14,11 @@
   "Returns the assembly line's production rate per hour,
    taking into account its success rate"
   [speed]
-  (double
-    (* (success-rate speed)
-       (/ (* speed default-cars-per-hour) 100))))
+  (-> speed
+    (* default-cars-per-hour)
+    (/ 100)
+    (* (success-rate speed))
+    (double)))
 
 (defn working-items
   "Calculates how many working cars are produced per minute"
