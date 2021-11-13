@@ -14,7 +14,7 @@
   "Returns the assembly line's production rate per hour,
    taking into account its success rate"
   [speed]
-  (float
+  (double
     (* (success-rate speed)
        (/ (* speed default-cars-per-hour) 100))))
 
