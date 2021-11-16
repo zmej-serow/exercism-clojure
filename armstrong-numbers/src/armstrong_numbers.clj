@@ -20,11 +20,11 @@
    153 is an Armstrong number, because: 153 = 1^3 + 5^3 + 3^3 = 1 + 125 + 27 = 153
    154 is not an Armstrong number, because: 154 != 1^3 + 5^3 + 4^3 = 1 + 125 + 64 = 190"
   [num]
-  (let [p  (count (str num))
-        re (partial reducer p)]
+  (let [p (count (str num))
+        f (partial reducer p)]
     (= num
        (as-> num n
           (str n)
           (str/split n #"")
           (map edn/read-string n)
-          (reduce re 0 n))))) 
+          (reduce f 0 n))))) 
