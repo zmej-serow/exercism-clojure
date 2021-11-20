@@ -1,16 +1,22 @@
-(ns armstrong-numbers
-  (:require [clojure.edn    :as edn]
-            [clojure.string :as str]))
+(ns armstrong-numbers)
 
 (defn pow
   "Exponentiation function"
   [x n]
-  (reduce *' (repeat n x)))
+  (reduce * 1 (repeat n x)))
 
 (defn reducer
-  "Reducing function"
-  [n acc x]
+  [acc x n]
   (+ acc (pow x n)))
+
+(defn to-digits
+  [n]
+  (loop [num n
+         digits nil]
+    (if (< num 10)
+      (conj digits num)
+      (recur (quot num 10)
+             (conj digits (rem num 10))))))
 
 (defn armstrong?
   "An Armstrong number is a number that is the sum of its own digits each raised to the power of the number of digits.
@@ -20,11 +26,6 @@
    153 is an Armstrong number, because: 153 = 1^3 + 5^3 + 3^3 = 1 + 125 + 27 = 153
    154 is not an Armstrong number, because: 154 != 1^3 + 5^3 + 4^3 = 1 + 125 + 64 = 190"
   [num]
-  (let [p (count (str num))
-        f (partial reducer p)]
-    (= num
-       (as-> num n
-          (str n)
-          (str/split n #"")
-          (map edn/read-string n)
-          (reduce f 0 n))))) 
+  (let [digits       (to-digits num)
+        digits-count (count digits)] 
+    (= num (reduce #(reducer %1 %2 digits-count) 0 digits))))
