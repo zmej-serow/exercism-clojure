@@ -18,8 +18,6 @@
   (->> s
        clojure.string/lower-case
        (filter is-ascii-letter?)
-       frequencies
-       keys
        set))
 
 (defn pangram? [s]
