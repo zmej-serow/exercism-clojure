@@ -1,14 +1,18 @@
 (ns pangram)
 
-(def ascii-letter-a 97)
-(def ascii-letter-z 123)
+(def ascii-code-for-letter-a (int \a))
+(def ascii-code-for-letter-z (int \z))
 
-(def all-ascii-letters (map char (range ascii-letter-a ascii-letter-z)))
+(def all-ascii-letters
+  (map char
+       (range
+         ascii-code-for-letter-a
+         (+ 1 ascii-code-for-letter-z))))
 
 (defn is-ascii-letter? [character]
   (let [ascii-code (int character)]
-    (and (<= ascii-letter-a ascii-code)
-         (>= ascii-letter-z ascii-code))))
+    (and (<= ascii-code-for-letter-a ascii-code)
+         (>= ascii-code-for-letter-z ascii-code))))
 
 (defn letters-in-input [s]
   (->> s
