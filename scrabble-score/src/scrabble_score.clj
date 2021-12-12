@@ -1,15 +1,14 @@
 (ns scrabble-score)
 
 (defn score-letter [letter]
-  (let [lowercase-letter (clojure.string/lower-case letter)]
-    (cond
-      (contains? #{"a" "e" "i" "o" "u" "l" "n" "r" "s" "t"} lowercase-letter) 1
-      (contains? #{"d" "g"} lowercase-letter) 2
-      (contains? #{"b" "c" "m" "p"} lowercase-letter) 3
-      (contains? #{"f" "h" "v" "w" "y"} lowercase-letter) 4
-      (contains? #{"j" "x"} lowercase-letter) 8
-      (contains? #{"q" "z"} lowercase-letter) 10
-      :else 5)))
+  (condp contains? (clojure.string/lower-case letter)
+    #{"a" "e" "i" "o" "u" "l" "n" "r" "s" "t"} 1
+    #{"d" "g"} 2
+    #{"b" "c" "m" "p"} 3
+    #{"f" "h" "v" "w" "y"} 4
+    #{"k"} 5
+    #{"j" "x"} 8
+    #{"q" "z"} 10))
 
 (defn score-word [word]
-  (reduce + (map score-letter (seq word))))
+  (reduce + (map score-letter word)))
